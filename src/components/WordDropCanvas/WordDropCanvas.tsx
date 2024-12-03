@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Canvas, Textbox, Rect, FabricImage, Group } from "fabric";
+import { Canvas, Rect, FabricImage, Group } from "fabric";
 import json from "./mock.json";
 
 const words = json.words;
@@ -8,7 +8,6 @@ const words = json.words;
 const CARD_SIZE = 150;
 
 const WordDropCanvas = () => {
-  const canvasRef = useRef(null);
   const [fabricCanvas, setFabricCanvas] = useState<Canvas | null>(null);
 
   useEffect(() => {
@@ -16,18 +15,20 @@ const WordDropCanvas = () => {
       return;
     }
 
+    debugger;
+
     // Initialize Fabric.js canvas
     const fabricInstance = new Canvas("word-drop", {
       backgroundColor: "#e0f7fa",
+      selection: false,
     });
 
     setFabricCanvas(fabricInstance);
 
     return () => {
-      if (fabricCanvas) {
-        fabricCanvas.dispose();
-      }
+      fabricCanvas?.dispose();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -55,8 +56,8 @@ const WordDropCanvas = () => {
       image.scaleToWidth(CARD_SIZE);
 
       const group = new Group([word, image], {
-        top: -100,
-        left: Math.random() * (window.innerWidth - 100),
+        top: -150,
+        left: Math.random() * (window.innerWidth - 160),
         width: CARD_SIZE,
         height: CARD_SIZE,
       });
@@ -69,7 +70,7 @@ const WordDropCanvas = () => {
       // Function to animate the rectangle down 1px per frame
       const animate = () => {
         // Update the top position by 1px
-        currentTop += 1;
+        currentTop += 5;
         group.set({ top: currentTop });
 
         // Re-render the canvas
@@ -111,19 +112,14 @@ const WordDropCanvas = () => {
 
     // Create a new word every 4 seconds
     setInterval(() => createWord(), 4000);
-
-    // Cleanup when the component unmounts
-    return () => {
-      fabricCanvas.dispose();
-    };
   }, [fabricCanvas]);
+
   return (
     <canvas
       id="word-drop"
       height={window.innerHeight}
       width={window.innerWidth}
-      ref={canvasRef}
-    ></canvas>
+    />
   );
 };
 
