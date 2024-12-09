@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "localhost",
       },
+      {
+        hostname: "dev-api.recallwords.com",
+      },
     ],
   },
   typescript: {
