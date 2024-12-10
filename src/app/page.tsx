@@ -19,7 +19,7 @@ export default async function Home({
           Learn, play, and master words in a fun and interactive way!
         </p>
       </section>
-      <Search>
+      <Search initialValue="">
         <Suspense key={search} fallback={<div>Loading..</div>}>
           {search && <SearchListView search={search || ""} />}
         </Suspense>

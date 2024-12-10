@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, ReactNode } from "react";
+import { useState, ReactNode, useEffect } from "react";
 import { SearchIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import useAppNavigation from "@/hooks/useAppNavigation";
 
 interface SearchProps {
   children: ReactNode;
+  initialValue: string;
 }
 
-export default function Search({ children }: SearchProps) {
+export default function Search({ children, initialValue }: SearchProps) {
   const { searchParams, pushToRouter, createQueryParams } = useAppNavigation();
 
   const [searchTerm, setSearchTerm] = useState(

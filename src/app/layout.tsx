@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Recall Words",
+  title: "Catch Words",
   description: "Learn, play, and master words",
 };
 
@@ -16,9 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} bg-gradient-to-br from-blue-100 to-purple-100 min-h-screen`}
-      >
+      <body className={`${inter.className} bg-gray-50 text-gray-900`}>
         <Header />
         <main className="container mx-auto px-4 py-8">{children}</main>
       </body>

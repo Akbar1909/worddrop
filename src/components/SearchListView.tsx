@@ -3,6 +3,7 @@ import MotionUl from "./MotionUl";
 import MotionLi from "./MotionLi";
 import { returnArray } from "@/utils/common";
 import SearchItemView from "./SearchItemView";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -28,9 +29,11 @@ const SearchListView = async ({ search }: { search: string }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: index * 0.1 }}
-              className="p-3 hover:bg-blue-50 cursor-pointer transition-colors"
+              className="hover:bg-blue-50 cursor-pointer transition-colors"
             >
-              <SearchItemView word={word} images={returnArray(images)} />
+              <Link className="p-3" href={`/word/${word}`}>
+                <SearchItemView word={word} images={returnArray(images)} />
+              </Link>
             </MotionLi>
           ))}
         </MotionUl>

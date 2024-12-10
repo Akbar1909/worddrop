@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -22,6 +23,9 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   reactStrictMode: false,
+  env: {
+    SERVER_URL: "http://localhost:3002",
+  },
 };
 
 export default nextConfig;
