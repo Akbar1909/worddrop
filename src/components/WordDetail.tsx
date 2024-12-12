@@ -9,10 +9,25 @@ import {
   Mic,
   ThumbsUp,
   ThumbsDown,
+  ImageIcon,
+  Globe,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { returnArray } from "@/utils/common";
+// import GroupSelectionModal from "./GroupSelectionModal";
+
+interface Example {
+  en: string;
+  uz: string;
+}
+
+interface Definition {
+  id: string;
+  definition: string;
+  examples: Example[];
+  images: string[];
+}
 
 interface WordDetailProps {
   word?: {
@@ -20,45 +35,68 @@ interface WordDetailProps {
     partOfSpeech: string;
     level: "easy" | "medium" | "hard";
     tags: string[];
-    definitions: Array<{
-      definition: string;
-      example: string;
-      images: string[];
-    }>;
+    definitions: Definition[];
     emoji: string;
     pronunciation: string;
   };
 }
 
 export default function WordDetail({
-  partOfSpeech = "noun",
-  level = "medium",
-  tags = ["sample", "test"],
-  definitions = [],
   word,
-  emoji = "📋",
+  partOfSpeech,
   difficulty,
-  category,
-}: any) {
-  const [isAdded, setIsAdded] = useState(false);
+
+  definitions,
+}: // emoji: "🍀",
+// pronunciation: "ˌser.ənˈdɪp.ə.ti",
+
+WordDetailProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [feedback, setFeedback] = useState<"good" | "bad" | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<"en" | "uz">("en");
+  const [selectedDefinitionId, setSelectedDefinitionId] = useState<
+    string | null
+  >(null);
 
-  const handleAddToGroup = () => {
-    setIsAdded(true);
-    setTimeout(() => setIsAdded(false), 2000);
+  const [groups, setGroups] = useState([
+    { id: "1", name: "Favorites" },
+    { id: "2", name: "Difficult Words" },
+    { id: "3", name: "Common Words" },
+  ]);
+
+  const handleAddToGroup = (definitionId: string) => {
+    setSelectedDefinitionId(definitionId);
+    setIsModalOpen(true);
+  };
+
+  const handleSelectGroup = (groupId: string) => {
+    console.log(
+      `Adding definition ${selectedDefinitionId} to group ${groupId}`
+    );
+    setIsModalOpen(false);
+    const definition = word.definitions.find(
+      (d) => d.id === selectedDefinitionId
+    );
+    if (definition) {
+      setFeedback("good");
+      setTimeout(() => setFeedback(null), 2000);
+    }
+  };
+
+  const handleCreateGroup = (groupName: string) => {
+    const newGroup = { id: Date.now().toString(), name: groupName };
+    setGroups([...groups, newGroup]);
   };
 
   const handlePlayPronunciation = () => {
     setIsPlaying(true);
-    // Simulating audio playback
     setTimeout(() => setIsPlaying(false), 2000);
   };
 
   const handleRecordPronunciation = () => {
     setIsRecording(true);
-    // Simulating recording
     setTimeout(() => setIsRecording(false), 3000);
   };
 
@@ -75,13 +113,6 @@ export default function WordDetail({
     }
   };
 
-  useEffect(() => {
-    if (feedback) {
-      const timer = setTimeout(() => setFeedback(null), 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [feedback]);
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -89,12 +120,12 @@ export default function WordDetail({
       className="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto"
     >
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-        <h2 className="text-3xl font-bold gradient-text mb-2 sm:mb-0 flex items-center">
+        <h2 className="text-3xl font-bold text-gray-800 mb-2 sm:mb-0 flex items-center">
           {/* <span className="mr-2">{word.emoji}</span> */}
           {word}
         </h2>
         <div className="flex items-center space-x-2">
-          <span className="text-gray-600 text-sm">{word.partOfSpeech}</span>
+          <span className="text-gray-600 text-sm">{partOfSpeech}</span>
           <span
             className={`${getLevelColor(
               difficulty
@@ -104,85 +135,135 @@ export default function WordDetail({
           </span>
         </div>
       </div>
-      {/* <div className="flex items-center space-x-4 mb-4">
-        <p className="text-gray-600 italic">{word.pronunciation}</p>
-        <button
+      <div className="flex items-center space-x-4 mb-4">
+        {/* <p className="text-gray-600 italic">{word.pronunciation}</p> */}
+        {/* <button
           onClick={handlePlayPronunciation}
           className={`p-2 rounded-full ${
             isPlaying
-              ? "bg-blue-100 text-blue-600"
+              ? "bg-[var(--primary-color)] text-white"
               : "bg-gray-100 text-gray-600"
-          } hover:bg-blue-200 transition-colors`}
+          } hover:bg-[var(--primary-dark)] transition-colors`}
         >
           <Volume2 size={20} />
-        </button>
-        <button
+        </button> */}
+        {/* <button
           onClick={handleRecordPronunciation}
           className={`p-2 rounded-full ${
             isRecording
-              ? "bg-red-100 text-red-600 animate-pulse"
+              ? "bg-red-500 text-white animate-pulse"
               : "bg-gray-100 text-gray-600"
-          } hover:bg-red-200 transition-colors`}
+          } hover:bg-red-600 transition-colors`}
         >
           <Mic size={20} />
-        </button>
-      </div> */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        {returnArray(definitions)
-          .map((item) => item.category?.category)
-          .map((tag, index) => (
-            <span
-              key={index}
-              className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full flex items-center"
-            >
-              <Tag size={10} className="mr-1" />
-              {tag}
-            </span>
-          ))}
+        </button> */}
       </div>
+      {/* <div className="flex flex-wrap gap-2 mb-6">
+        {word.tags.map((tag, index) => (
+          <span
+            key={index}
+            className="bg-[var(--primary-color)] text-white text-xs px-2 py-1 rounded-full flex items-center"
+          >
+            <Tag size={10} className="mr-1" />
+            {tag}
+          </span>
+        ))}
+      </div> */}
       <div className="space-y-8">
-        {definitions.map((item, definitionIndex) => (
+        {returnArray(definitions).map((item, definitionIndex) => (
           <motion.div
-            key={definitionIndex}
+            key={item.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: definitionIndex * 0.1 }}
-            className="border-b border-blue-100 pb-6 last:border-b-0 last:pb-0"
+            className="border-b border-gray-200 pb-6 last:border-b-0 last:pb-0"
           >
-            <p className="text-lg font-medium text-gray-800 mb-2">
-              {definitionIndex + 1}. {item.definition}
-            </p>
-            {returnArray(item.examples).map((example, i) => {
-              return (
-                <div key={i} className="mb-4">
-                  <p
-                    key={i}
-                    className="text-gray-600 italic mb-4 pl-4 border-l-2 border-blue-300"
-                  >
-                    "{example.example}"
-                  </p>
+            <div className="flex justify-between items-start mb-4">
+              <p className="text-lg font-medium text-gray-800 flex-grow">
+                {definitionIndex + 1}. {item.uz}
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => handleAddToGroup(item.id)}
+                className="flex items-center justify-center p-1 rounded-full text-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-white transition-colors ml-2"
+              >
+                <Plus size={16} />
+                <span className="sr-only">Add to Group</span>
+              </motion.button>
+            </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    {returnArray(example.files).map((image, imageIndex) => (
-                      <motion.div
-                        key={imageIndex}
-                        whileHover={{ scale: 1.05 }}
-                        className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
-                      >
-                        <Image
-                          src={`${process.env.SERVER_URL}/upload/serve/${image.originalName}`}
-                          alt={`Example image ${imageIndex + 1} for ${
-                            word.text
-                          }`}
-                          layout="fill"
-                          objectFit="cover"
-                        />
-                      </motion.div>
-                    ))}
-                  </div>
+            <div className="mb-4">
+              <h4 className="text-sm font-semibold text-gray-600 mb-2 flex items-center">
+                <ImageIcon size={16} className="mr-1" />
+                Visual Representations
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {returnArray(item.files).map((image, imageIndex) => (
+                  <motion.div
+                    key={imageIndex}
+                    whileHover={{ scale: 1.05 }}
+                    className="relative aspect-square rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
+                  >
+                    <Image
+                      alt={`Illustration for ${word}`}
+                      layout="fill"
+                      objectFit="cover"
+                      src={`${process.env.SERVER_URL}/upload/serve/${image.originalName}`}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <div className="border-t border-gray-200 my-4"></div>
+
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <h4 className="text-sm font-semibold text-gray-600">
+                  Examples:
+                </h4>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => setSelectedLanguage("en")}
+                    className={`px-2 py-1 rounded ${
+                      selectedLanguage === "en"
+                        ? "bg-[var(--primary-color)] text-white"
+                        : "bg-gray-200 text-gray-700"
+                    }`}
+                  >
+                    EN
+                  </button>
+                  <button
+                    onClick={() => setSelectedLanguage("uz")}
+                    className={`px-2 py-1 rounded ${
+                      selectedLanguage === "uz"
+                        ? "bg-[var(--primary-color)] text-white"
+                        : "bg-gray-200 text-gray-700"
+                    }`}
+                  >
+                    UZ
+                  </button>
                 </div>
-              );
-            })}
+              </div>
+              {item.examples.map((example, exampleIndex) => (
+                <div key={exampleIndex} className="mb-2">
+                  <p className="text-gray-600 italic pl-4 border-l-2 border-[var(--primary-color)]">
+                    "{example[selectedLanguage]}"
+                  </p>
+                  {selectedLanguage === "en" && (
+                    <p className="text-gray-500 text-sm mt-1 pl-4">
+                      {example.uz}
+                    </p>
+                  )}
+                  {selectedLanguage === "uz" && (
+                    <p className="text-gray-500 text-sm mt-1 pl-4">
+                      {example.en}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
           </motion.div>
         ))}
       </div>
@@ -194,9 +275,9 @@ export default function WordDetail({
             onClick={() => setFeedback("good")}
             className={`p-2 rounded-full ${
               feedback === "good"
-                ? "bg-green-100 text-green-600"
+                ? "bg-green-500 text-white"
                 : "bg-gray-100 text-gray-600"
-            } hover:bg-green-200 transition-colors`}
+            } hover:bg-green-600 transition-colors`}
           >
             <ThumbsUp size={20} />
           </motion.button>
@@ -206,29 +287,21 @@ export default function WordDetail({
             onClick={() => setFeedback("bad")}
             className={`p-2 rounded-full ${
               feedback === "bad"
-                ? "bg-red-100 text-red-600"
+                ? "bg-red-500 text-white"
                 : "bg-gray-100 text-gray-600"
-            } hover:bg-red-200 transition-colors`}
+            } hover:bg-red-600 transition-colors`}
           >
             <ThumbsDown size={20} />
           </motion.button>
         </div>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleAddToGroup}
-          className={`flex items-center justify-center px-4 py-2 rounded-lg text-white font-medium transition-colors ${
-            isAdded ? "bg-emerald-500" : "bg-blue-500 hover:bg-blue-600"
-          }`}
-        >
-          {isAdded ? (
-            <Bookmark className="mr-2" size={18} />
-          ) : (
-            <Plus className="mr-2" size={18} />
-          )}
-          <span>{isAdded ? "Added to Group" : "Add to Group"}</span>
-        </motion.button>
       </div>
+      {/* <GroupSelectionModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSelectGroup={handleSelectGroup}
+        onCreateGroup={handleCreateGroup}
+        groups={groups}
+      /> */}
       <AnimatePresence>
         {feedback && (
           <motion.div

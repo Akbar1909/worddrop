@@ -29,11 +29,9 @@ const SearchListView = async ({ search }: { search: string }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: index * 0.1 }}
-              className="hover:bg-blue-50 cursor-pointer transition-colors"
+              className="hover:bg-blue-50 cursor-pointer transition-colors flex items-center h-16 px-3"
             >
-              <Link className="p-3" href={`/word/${word}`}>
-                <SearchItemView word={word} images={returnArray(images)} />
-              </Link>
+              <Link href={`/word/${word}`}>{word}</Link>
             </MotionLi>
           ))}
         </MotionUl>
