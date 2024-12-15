@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "dev-api.recallwords.com",
       },
+      {
+        hostname: "api.recallwords.com",
+      },
     ],
   },
 
@@ -24,7 +27,7 @@ const nextConfig: NextConfig = {
   },
   reactStrictMode: false,
   env: {
-    SERVER_URL: "http://localhost:3002",
+    SERVER_URL: process.env.SERVER_URL,
   },
 };
 
