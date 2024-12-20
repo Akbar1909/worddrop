@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --primary-color: #FF6B6B; /* Coral color */
-  --primary-dark: #FF5252; /* Slightly darker coral for hover states */
-  --secondary-color: #FFF0F0; /* Light coral for backgrounds */
+  --font-sans: 'Bungee', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --primary-color: #F4EFE7; /* Coral color */
+  --primary-dark: #E8DED1; /* Slightly darker coral for hover states */
+  --secondary-color: #72A4F2; /* Light coral for backgrounds */
   --accent-color: #4ECDC4; /* Teal as an accent color */
-  --text-color: #333333;
+  --text-color: #202020;
   --background-color: #ffffff;
 }
 

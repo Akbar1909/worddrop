@@ -22,7 +22,7 @@ export default function WelcomeTitle() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-b from-white to-[var(--secondary-color)] py-16 px-4">
+    <div className="bg-[var(--primary-color)] py-16 pt-10 px-4 rounded-[24px]">
       <div className="max-w-4xl mx-auto text-center">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -31,7 +31,7 @@ export default function WelcomeTitle() {
           className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-gray-900"
         >
           Welcome to{" "}
-          <span className="text-[var(--primary-color)]">Recall Words</span>
+          <span className="text-[var(--secondary-color)]">Recall Words</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -43,7 +43,7 @@ export default function WelcomeTitle() {
         </motion.p>
 
         <div className="flex justify-center mb-12">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+          <div className="bg-white rounded-[24px] shadow-lg p-6 w-full max-w-md">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentFeature}
@@ -79,13 +79,13 @@ export default function WelcomeTitle() {
         >
           <Link
             href="/groups"
-            className="inline-flex items-center px-6 py-3 text-lg font-semibold text-white bg-[var(--primary-color)] rounded-full hover:bg-[var(--primary-dark)] transition-colors duration-300"
+            className="inline-flex items-center px-6 py-3 text-lg font-semibold  bg-[var(--primary-color)] rounded-full hover:bg-[var(--primary-dark)] transition-colors duration-300 text-black"
           >
             Explore Groups
           </Link>
           <Link
             href="/game"
-            className="inline-flex items-center px-6 py-3 text-lg font-semibold text-white bg-[var(--primary-color)] rounded-full hover:bg-[var(--primary-dark)] transition-colors duration-300"
+            className="inline-flex items-center px-6 py-3 text-lg font-semibold bg-[var(--primary-color)] rounded-full hover:bg-[var(--primary-dark)] transition-colors duration-300 text-black"
           >
             Play Games
           </Link>

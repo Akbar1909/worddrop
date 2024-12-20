@@ -6,6 +6,7 @@ import { X, Mail, Lock, User, Github, Facebook, Instagram } from "lucide-react";
 import { useForm } from "react-hook-form";
 import useAppMutation from "@/hooks/useAppMutation";
 import { request } from "@/services/request";
+import useGetMe from "@/hooks/endpoints/useGetMe";
 
 type AuthMode = "login" | "register";
 
@@ -18,6 +19,7 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const [mode, setMode] = useState<AuthMode>("login");
 
   const { register, ...formRest } = useForm();
+  const { inValidateQuery } = useGetMe()
 
   const { mutate } = useAppMutation({
     mutationFn: (body: any) => request.post("/auth/register", body),
@@ -31,8 +33,10 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
     mutationFn: (body: any) => request.post("/auth/login", body),
     mutationKey: ["auth-register"],
     onSuccess: (res) => {
-      localStorage.setItem("token", res.data?.token);
+      document.cookie = `recall-token=${res.data.token}; path=/; max-age=3600`;
+      inValidateQuery()
       onClose();
+
     },
   });
 
@@ -73,7 +77,7 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
               </h2>
               <button
                 onClick={onClose}
-                className="text-white hover:text-gray-200"
+                className="text-black hover:text-black/60"
               >
                 <X size={24} />
               </button>
@@ -105,7 +109,7 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email
+                  Username
                 </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -113,8 +117,8 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                   </div>
                   <input
                     className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)]"
-                    placeholder="Email address"
-                    {...register("email")}
+                    placeholder="Username"
+                    {...register("username")}
                   />
                 </div>
               </div>
@@ -140,7 +144,7 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
               </div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[var(--primary-color)] hover:bg-[var(--primary-dark)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)]"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-[var(--primary-color)] hover:bg-[var(--primary-dark)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)]"
               >
                 {mode === "login" ? "Sign In" : "Sign Up"}
               </button>

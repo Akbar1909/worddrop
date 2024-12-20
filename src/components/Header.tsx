@@ -13,7 +13,7 @@ export default function Header() {
   const { me, hasToken } = useGetMe();
 
   return (
-    <header className="bg-white py-4">
+    <header className="bg-[var(--primary-color)] py-4">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-xl font-bold flex items-center">
@@ -43,7 +43,7 @@ export default function Header() {
           </nav>
           <button
             onClick={() => setIsAuthModalOpen(true)}
-            className="bg-[#ff4f4f] text-white px-6 py-2 rounded-full hover:bg-[#ff3d3d] transition-colors"
+            className="bg-[var(--secondary-color)] text-white px-6 py-2 rounded-full  transition-colors"
           >
             <Show when={!hasToken}>Login</Show>
             <Show when={hasToken}>{me.username}</Show>

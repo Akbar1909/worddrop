@@ -68,7 +68,7 @@ export default function HeaderClient({ user }: HeaderClientProps) {
             ) : (
               <button
                 onClick={() => setIsAuthModalOpen(true)}
-                className="flex items-center space-x-2 text-[var(--primary-color)] hover:text-[var(--primary-dark)] transition-colors bg-[var(--primary-color)] bg-opacity-10 rounded-full px-4 py-2"
+                className="flex items-center space-x-2 text-[var(--primary-color)] hover:text-[var(--primary-dark)] transition-colors bg-[var(--primary-color)] bg-[var(--secondary-color)] rounded-full px-4 py-2"
               >
                 <LogIn className="w-5 h-5" />
                 <span className="font-medium">Login</span>

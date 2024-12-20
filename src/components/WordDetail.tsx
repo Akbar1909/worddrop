@@ -119,7 +119,7 @@ WordDetailProps) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto"
+        className="bg-white border-black border-[1px] shadow-md p-6 max-w-3xl mx-auto  rounded-[24px]"
       >
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
           <h2 className="text-3xl font-bold text-gray-800 mb-2 sm:mb-0 flex items-center">
@@ -138,39 +138,9 @@ WordDetailProps) {
           </div>
         </div>
         <div className="flex items-center space-x-4 mb-4">
-          {/* <p className="text-gray-600 italic">{word.pronunciation}</p> */}
-          {/* <button
-          onClick={handlePlayPronunciation}
-          className={`p-2 rounded-full ${
-            isPlaying
-              ? "bg-[var(--primary-color)] text-white"
-              : "bg-gray-100 text-gray-600"
-          } hover:bg-[var(--primary-dark)] transition-colors`}
-        >
-          <Volume2 size={20} />
-        </button> */}
-          {/* <button
-          onClick={handleRecordPronunciation}
-          className={`p-2 rounded-full ${
-            isRecording
-              ? "bg-red-500 text-white animate-pulse"
-              : "bg-gray-100 text-gray-600"
-          } hover:bg-red-600 transition-colors`}
-        >
-          <Mic size={20} />
-        </button> */}
+      
         </div>
-        {/* <div className="flex flex-wrap gap-2 mb-6">
-        {word.tags.map((tag, index) => (
-          <span
-            key={index}
-            className="bg-[var(--primary-color)] text-white text-xs px-2 py-1 rounded-full flex items-center"
-          >
-            <Tag size={10} className="mr-1" />
-            {tag}
-          </span>
-        ))}
-      </div> */}
+     
         <div className="space-y-8">
           {returnArray(definitions).map((item, definitionIndex) => (
             <motion.div

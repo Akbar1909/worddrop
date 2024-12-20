@@ -1,13 +1,6 @@
 "use client";
 import WordGroups from "@/components/WordGroups";
-import React from "react";
 
-const WordGroupsPage = () => {
-  return (
-    <div>
-      <WordGroups />
-    </div>
-  );
-};
+const WordGroupsPage = () =>  <WordGroups />
 
 export default WordGroupsPage;

@@ -16,6 +16,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "api.recallwords.com",
       },
+      {
+        hostname:"letter-so.s3.amazonaws.com"
+      }
     ],
   },
 

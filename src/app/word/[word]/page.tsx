@@ -1,8 +1,7 @@
 import Search from "@/components/Search";
 import SearchListView from "@/components/SearchListView";
 import WordDetail from "@/components/WordDetail";
-import { returnArray } from "@/utils/common";
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 
 const WordDetailPage = async ({
   params,

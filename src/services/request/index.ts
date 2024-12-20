@@ -1,3 +1,4 @@
+import { getCookieValue } from "@/utils/common";
 import axios from "axios";
 
 const request = axios.create({
@@ -12,7 +13,7 @@ const request = axios.create({
 
 request.interceptors.request.use(
   (config: any) => {
-    config.headers["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+    config.headers["Authorization"] = `Bearer ${getCookieValue("recall-token")}`;
     return config;
   },
   (error: any) => {

@@ -2,7 +2,6 @@ import { AnimatePresence } from "framer-motion";
 import MotionUl from "./MotionUl";
 import MotionLi from "./MotionLi";
 import { returnArray } from "@/utils/common";
-import SearchItemView from "./SearchItemView";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
