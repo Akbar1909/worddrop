@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={`${bungee.className} bg-[var(--primary-color)]  text-gray-900`}>
         <QueryClientProvider>
           <Header />
-          <main className="container mx-auto px-4 py-8">{children}</main>
+          <main className="container mx-auto px-4 py-8 h-[calc(100dvh_-_72px)]">{children}</main>
         </QueryClientProvider>
       </body>
     </html>

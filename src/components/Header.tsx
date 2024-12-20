@@ -13,7 +13,7 @@ export default function Header() {
   const { me, hasToken } = useGetMe();
 
   return (
-    <header className="bg-[var(--primary-color)] py-4">
+    <header className="bg-[var(--primary-color)] py-4 h-[72px]">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-xl font-bold flex items-center">

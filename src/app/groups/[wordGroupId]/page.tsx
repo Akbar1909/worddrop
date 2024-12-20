@@ -1,30 +1,31 @@
 import React from 'react'
-import {cookies} from 'next/headers'
+import { cookies } from 'next/headers'
+import StackedCards from '@/components/StackedCards'
+import { returnArray } from '@/utils/common'
 
 
-export const revalidate=0
+export const revalidate = 0
 
 
 const WordGroupDetailPage = async ({ params }) => {
 
 
-    const {wordGroupId} = await params
+    const { wordGroupId } = await params
 
-    console.log({wordGroupId})
+
 
 
     const res = await fetch(`${process.env.SERVER_URL}/word-group/${wordGroupId}`, {
         headers: {
             Authorization: `Bearer ${cookies().get('recall-token')?.value}`
         },
-        
+
     })
 
     const data = await res.json()
 
-    console.log(data)
     return (
-        <div>WordGroupDetailPage</div>
+        <StackedCards words={returnArray(data?.wordGroupDefinitions)}>WordGroupDetailPage</StackedCards>
     )
 }
 
