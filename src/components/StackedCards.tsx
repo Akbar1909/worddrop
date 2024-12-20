@@ -115,10 +115,11 @@ const StackedCards = ({ words }: { words: any }) => {
                   />
                 </motion.div>
               ))}
+               <p>{word?.definition?.uz}</p>
               {
                 animatedTexts?.[word?.definitionId] && <TypingEffect text={word?.definition?.word?.word} />
               }
-              <p>{word?.definition?.uz}</p>
+             
             </motion.li>
           );
         })}
