@@ -105,7 +105,7 @@ const StackedCards = ({ words }: { words: any }) => {
                 <motion.div
                   key={imageIndex}
                
-                  className="relative w-[280px] m-auto h-[280px] mb-2 aspect-square rounded-[24px] overflow-hidden duration-300"
+                  className="relative w-[260px] m-auto h-[260px] mb-2 aspect-square rounded-[24px] overflow-hidden duration-300"
                 >
                   <Image
                     alt={`Illustration for`}
@@ -115,7 +115,7 @@ const StackedCards = ({ words }: { words: any }) => {
                   />
                 </motion.div>
               ))}
-               <p>{word?.definition?.uz}</p>
+               <p className="mb-2">{word?.definition?.uz}</p>
               {
                 animatedTexts?.[word?.definitionId] && <TypingEffect text={word?.definition?.word?.word} />
               }
