@@ -62,6 +62,8 @@ const StackedCards = ({ words }: { words: any }) => {
   const [cards, setCards] = useState([]);
   const moveToEnd = (from) => {
     setCards(move(cards, from, cards.length - 1));
+
+    setAnimatedTexts({})
   };
 
   useEffect(() => setCards(returnArray(words)), [words])
