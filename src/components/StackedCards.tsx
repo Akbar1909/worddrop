@@ -115,11 +115,10 @@ const StackedCards = ({ words }: { words: any }) => {
                   />
                 </motion.div>
               ))}
-              <p>Qaytmoq; biror joyga yoki holatga yana borish yoki qaytish, biror narsani qaytarish.</p>
               {
                 animatedTexts?.[word?.definitionId] && <TypingEffect text={word?.definition?.word?.word} />
               }
-              {/* <p>{word?.definition?.uz}</p> */}
+              <p>{word?.definition?.uz}</p>
             </motion.li>
           );
         })}
