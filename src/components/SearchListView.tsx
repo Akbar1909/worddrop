@@ -22,7 +22,7 @@ const SearchListView = async ({ search, children }: { search: string }) => {
       isOpen={preparedData.length > 0}
       toggler={<Search initialValue={search} />}
     >
-      <div className="flex flex-col bg-white rounded-[24px] border-[2px] border-black overflow-hidden">
+      <div className="flex flex-col bg-white rounded-[24px] border border-black overflow-hidden">
         {preparedData.map((word) => (
           <Link
             href={`/word/${word.word}`}
