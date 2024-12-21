@@ -1,7 +1,5 @@
-import Search from "@/components/Search";
 import SearchListView from "@/components/SearchListView";
 import WordDetail from "@/components/WordDetail";
-import { Suspense } from "react";
 
 const WordDetailPage = async ({
   params,
@@ -18,11 +16,7 @@ const WordDetailPage = async ({
   return (
     <div>
       <div className="mb-10">
-        <Search initialValue={word}>
-          <Suspense key={search} fallback={<div>Loading..</div>}>
-            {search && <SearchListView search={search || ""} />}
-          </Suspense>
-        </Search>
+        <SearchListView search={search || ""} />
       </div>
       <WordDetail {...data} />
     </div>

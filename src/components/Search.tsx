@@ -6,11 +6,10 @@ import { motion } from "framer-motion";
 import useAppNavigation from "@/hooks/useAppNavigation";
 
 interface SearchProps {
-  children: ReactNode;
   initialValue: string;
 }
 
-export default function Search({ children, initialValue }: SearchProps) {
+export default function Search({ initialValue }: SearchProps) {
   const { searchParams, pushToRouter, createQueryParams } = useAppNavigation();
 
   const [searchTerm, setSearchTerm] = useState(
@@ -19,8 +18,7 @@ export default function Search({ children, initialValue }: SearchProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      style={{ opacity: 1, y: 0 }}
       className="relative max-w-2xl mx-auto"
     >
       <div className="relative">
@@ -45,7 +43,6 @@ export default function Search({ children, initialValue }: SearchProps) {
         />
         <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--primary-color)] w-6 h-6" />
       </div>
-      {children}
     </motion.div>
   );
 }

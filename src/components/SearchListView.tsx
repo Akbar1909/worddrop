@@ -3,39 +3,37 @@ import MotionUl from "./MotionUl";
 import MotionLi from "./MotionLi";
 import { returnArray } from "@/utils/common";
 import Link from "next/link";
+import SearchDropdown from "./SearchDropdown";
+import Search from "./Search";
 
 export const dynamic = "force-dynamic";
 
-const SearchListView = async ({ search }: { search: string }) => {
+const SearchListView = async ({ search, children }: { search: string }) => {
   const result = await fetch(
     `${process.env.SERVER_URL}/word/search?query=${search}`
   );
 
   const data = await result.json();
 
+  const preparedData = returnArray(data);
+
   return (
-    <AnimatePresence>
-      {returnArray(data).length > 0 && (
-        <MotionUl
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="absolute w-full bg-white mt-2 rounded-lg shadow-lg z-10 overflow-hidden"
-        >
-          {returnArray(data).map(({ word, images }, index) => (
-            <MotionLi
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: index * 0.1 }}
-              className="hover:bg-blue-50 cursor-pointer transition-colors flex items-center h-16 px-3"
-            >
-              <Link href={`/word/${word}`}>{word}</Link>
-            </MotionLi>
-          ))}
-        </MotionUl>
-      )}
-    </AnimatePresence>
+    <SearchDropdown
+      isOpen={preparedData.length > 0}
+      toggler={<Search initialValue={search} />}
+    >
+      <div className="flex flex-col bg-white rounded-[24px] border-[2px] border-black overflow-hidden">
+        {preparedData.map((word) => (
+          <Link
+            href={`/word/${word.word}`}
+            key={word.text}
+            className="px-3 py-2 hover:bg-gray-100 hover:underline border-b border-gray-200 flex items-center space-x-2"
+          >
+            {word.word}
+          </Link>
+        ))}
+      </div>
+    </SearchDropdown>
   );
 };
 

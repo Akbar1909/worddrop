@@ -25,18 +25,14 @@ export default function WelcomeTitle() {
     <div className="bg-[var(--primary-color)] py-16 pt-10 px-4 rounded-[24px]">
       <div className="max-w-4xl mx-auto text-center">
         <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          style={{ opacity: 1, y: 0 }}
           className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-gray-900"
         >
           Welcome to{" "}
           <span className="text-[var(--secondary-color)]">Recall Words</span>
         </motion.h1>
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          style={{ opacity: 1, y: 0 }}
           className="text-xl text-gray-600 mb-8"
         >
           Your journey to language mastery starts here
@@ -47,10 +43,7 @@ export default function WelcomeTitle() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentFeature}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
+                style={{ opacity: 1, x: 0 }}
                 className="flex items-center justify-center"
               >
                 {features.map((feature, index) => (
@@ -72,9 +65,7 @@ export default function WelcomeTitle() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          style={{ opacity: 1, y: 0 }}
           className="flex flex-wrap justify-center gap-4"
         >
           <Link
